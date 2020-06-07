@@ -1,6 +1,6 @@
 
 public class VideoGames {
-	private String isbn;
+	private String serialNumber;
 	private String title;
 	private int year;
 	private String studioOrPublisher;
@@ -16,8 +16,8 @@ public class VideoGames {
 	 * @param gross    the amount grossed over the lifetime of the movie, given in
 	 *                 Millions of dollars
 	 */
-	public VideoGames(String isbn, String title, int year, String studio, String rating) {
-		this.isbn = isbn;
+	public VideoGames(String serialNumber, String title, int year, String studio, String rating) {
+		this.serialNumber = serialNumber;
 		this.title = title;
 		this.year = year;
 		this.studioOrPublisher = studio;
@@ -38,8 +38,8 @@ public class VideoGames {
 	 *
 	 * @return the Movie's director
 	 */
-	public String getIsbn() {
-		return isbn;
+	public String getSerialNumber() {
+		return serialNumber;
 	}
 
 	/**
@@ -78,8 +78,8 @@ public class VideoGames {
 	 *
 	 * @param director the Movie's director
 	 */
-	public void setisbn(String isbn) {
-		this.isbn = isbn;
+	public void setisbn(String serialNumber) {
+		this.serialNumber = serialNumber;
 	}
 
 	/**
@@ -113,7 +113,7 @@ public class VideoGames {
 	@Override
 	public String toString() {
 		String result = "";
-		result += "ISBN: " + isbn + "\nTitle: " + title + "\nYear: " + year + "\nStudio or Publisher: "
+		result += "Serial Number: " + serialNumber + "\nTitle: " + title + "\nYear: " + year + "\nStudio or Publisher: "
 				+ studioOrPublisher + "\nRating: " + rating + "\n\n";
 		return result;
 	}
@@ -133,7 +133,7 @@ public class VideoGames {
 			return false;
 		} else {
 			VideoGames p = (VideoGames) o;
-			return isbn.equals(p.isbn) && title.equals(p.title);
+			return serialNumber.equals(p.serialNumber) && title.equals(p.title);
 		}
 
 	}
@@ -153,9 +153,9 @@ public class VideoGames {
 	public int compareTo(VideoGames otherMovie) {
 		if (this.equals(otherMovie)) {
 			return 0;
-		} else if (isbn.compareTo(otherMovie.isbn) < 0) {
+		} else if (serialNumber.compareTo(otherMovie.serialNumber) < 0) {
 			return -1;
-		} else if (isbn.compareTo(otherMovie.isbn) > 0) {
+		} else if (serialNumber.compareTo(otherMovie.serialNumber) > 0) {
 			return 1;
 		}
 		if (title.compareTo(otherMovie.title) < 0) {
@@ -174,7 +174,7 @@ public class VideoGames {
 	 */
 	@Override
 	public int hashCode() {
-		String key = isbn + title;
+		String key = serialNumber + title;
 		int sum = 0;
 		for (int i = 0; i < key.length(); i++) {
 			sum += (int) key.charAt(i);
