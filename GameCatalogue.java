@@ -68,6 +68,7 @@ public class GameCatalogue {
 			
 			VideoGames v = new VideoGames(serialNum, title, year, publisher, rating);
 			hash.insert(v);
+			bst.insert(v);
 		}
 		in.close();
 	}
