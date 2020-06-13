@@ -3,7 +3,8 @@ import java.util.*;
 
 public class GameCatalogue {
 	private final int numvideogames = 25;
-	Hash<VideoGames> hash = new Hash<>(numvideogames);
+	//private String userName;
+	Hash<VideoGames> hash = new Hash<>(numvideogames * 2);
 	BST<VideoGames> bst = new BST<>();
 
 	public static void main(String[] args) throws IOException{
@@ -22,7 +23,7 @@ public class GameCatalogue {
 				gameCatalogue.readFile(fileName);
 				isTrue = false;
 			} catch(IOException e) {
-				System.out.println("Not a valid file name");
+				System.out.println(e.getMessage());
 			}
 		}
 		input.close();
@@ -36,16 +37,22 @@ public class GameCatalogue {
 					System.out.println("File doesn't exist");
 				}
 				//System.out.println(gameCatalogue.hash);
-				output.print(gameCatalogue.hash);
+				output.print(gameCatalogue.hash.toString());
 				output.close();
+		gameCatalogue.hash.toString();
 
 	}
 	/**
 	 * reads file content 
-	 * @throws IOException
+	 * @precondition fileName exists
+	 * @throws IOException if file does not exist
 	 */
 	public void readFile(String fileName) throws IOException{
 		File inFile = new File(fileName);
+		
+		if(!inFile.exists()) {
+			throw new IOException("readFile cannot find the file");
+		}
 		Scanner in = new Scanner(inFile);
 		
 		while(in.hasNext()) {
@@ -71,6 +78,15 @@ public class GameCatalogue {
 			bst.insert(v);
 		}
 		in.close();
+	}
+	
+	/**
+	 * outputs the hash contents onto file by calling on hash.printOut
+	 */
+	public void writeFile() throws IOException{
+		File outFile = new File("out.txt");
+		PrintWriter output = new PrintWriter(outFile);
+		hash.printOut(output);
 	}
 	
 	}
