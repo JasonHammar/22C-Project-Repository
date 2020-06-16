@@ -64,7 +64,7 @@ public class GameCatalogue {
 			System.out.println("title: " + title);
 			System.out.println("publisher: " + publisher);
 			System.out.println("year: " + year);
-			System.out.println("rating: " + rating);
+			System.out.println("rating: " + rating + "\n");
 
 			VideoGames v = new VideoGames(serialNum, title, year, publisher, rating);
 			hash.insert(v);
