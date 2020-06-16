@@ -173,13 +173,13 @@ public class VideoGames implements Comparable<VideoGames> {
 
 	/**
 	 * Returns a consistent hash code for each Video Game by summing the Unicode
-	 * values of each character in the key Key = serialNumber + title
+	 * values of each character in the key (Primary Key)
 	 *
 	 * @return the hash code
 	 */
 	@Override
 	public int hashCode() {
-		String key = serialNumber + title;
+		String key = serialNumber;
 		int sum = 0;
 		for (int i = 0; i < key.length(); i++) {
 			sum += (int) key.charAt(i);
