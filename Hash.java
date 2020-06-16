@@ -156,8 +156,10 @@ public class Hash<T extends Comparable<T>> {
 			List<T> list = Table.get(i);
 			list.placeIterator();
 			for (int j = 0; j < list.getLength(); j++) {
-
-				((VideoGames) list.getIterator()).printGameToFile(output);
+				if(list.getIterator() != null) {
+					((VideoGames) list.getIterator()).printGameToFile(output);
+				}
+				list.advanceIterator();
 
 			}
 		}
