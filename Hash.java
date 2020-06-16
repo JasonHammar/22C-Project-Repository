@@ -1,10 +1,4 @@
-
-/**
-* Hash.java
-* @author Aurielle Jocom
-* @author Donggyu Yu
-* CIS 22C, Lab 5
-*/
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class Hash<T extends Comparable<T>> {
@@ -79,7 +73,7 @@ public class Hash<T extends Comparable<T>> {
 		int bucket = hash(t);
 		int index = Table.get(bucket).linearSearch(t);
 		if (index != -1) {
-			return index;
+			return bucket;
 		}
 
 		else {
@@ -116,6 +110,8 @@ public class Hash<T extends Comparable<T>> {
 
 		if (index != -1) {
 			Table.get(bucket).advanceNTimes(index);
+		} else {
+			return;
 		}
 
 		Table.get(bucket).removeIterator();
@@ -150,5 +146,21 @@ public class Hash<T extends Comparable<T>> {
 		}
 
 		return s;
+	}
+
+	/**
+	 * Prints out the all information to the text file.
+	 */
+	public void printOut(PrintWriter output) {
+		for (int i = 0; i < Table.size(); i++) {
+			List<T> list = Table.get(i);
+			list.placeIterator();
+			for (int j = 0; j < list.getLength(); j++) {
+
+				((VideoGames) list.getIterator()).printGameToFile(output);
+
+			}
+		}
+
 	}
 }
