@@ -52,14 +52,19 @@ public class VideoGames implements Comparable<VideoGames> {
 	}
 
 	/**
-	 * Access the gross amount earned by the Video Game in Millions of dollars
+	 * Access publisher's name who published the game
 	 *
-	 * @return the Video Game's gross in Millions
+	 * @return the Video Game's publisher
 	 */
 	public String getPublisher() {
 		return this.publisher;
 	}
-
+	
+	/**
+	 * Access the rating of the video game
+	 *
+	 * @return the Video Game's rating
+	 */
 	public String getRating() {
 		return this.rating;
 	}
@@ -74,11 +79,11 @@ public class VideoGames implements Comparable<VideoGames> {
 	}
 
 	/**
-	 * Sets the director of the Video Game
+	 * Sets the serial number of the Video Game
 	 *
-	 * @param director the Video Game's director
+	 * @param serial number the Video Game's serial number
 	 */
-	public void setisbn(String serialNumber) {
+	public void setSerialNumber(String serialNumber) {
 		this.serialNumber = serialNumber;
 	}
 
@@ -92,9 +97,9 @@ public class VideoGames implements Comparable<VideoGames> {
 	}
 
 	/**
-	 * Sets the gross amount earned by the Video Game in Millions of dolalrs
+	 * Sets the Studio or Publisher who made the video game
 	 *
-	 * @param gross the gross amount in Millions of dollars
+	 * @param Studio or publisher who made the video game
 	 */
 	public void setStudioOrPublisher(String studio) {
 		this.publisher = studio;
@@ -105,10 +110,9 @@ public class VideoGames implements Comparable<VideoGames> {
 	}
 
 	/**
-	 * Creates a String of the Video Game information the following format: Title:
-	 * <title> Director: <director> Year: <year> Gross in Millions: $<grossMillions>
-	 * Note that there should be no <> in the resulting String Also the
-	 * grossMillions should be displayed as follows: XXX,XXX.XX
+	 * Creates a String of the Video Game information the following format: Serial Number:
+	 * <serialNumber> Title: <title> Year: <year> Publisher: <publisher> Rating: <rating>
+	 * Note that there should be no <> in the resulting String.
 	 */
 	@Override
 	public String toString() {
@@ -119,8 +123,8 @@ public class VideoGames implements Comparable<VideoGames> {
 	}
 
 	/**
-	 * Determines whether two Video Game objects are equal by comparing titles and
-	 * directors
+	 * Determines whether two Video Game objects are equal by comparing serialNumber
+	 * and Title.
 	 *
 	 * @param otherVideo Game the second Video Game object
 	 * @return whether the Video Games are equal
@@ -140,10 +144,10 @@ public class VideoGames implements Comparable<VideoGames> {
 
 	/**
 	 * Compares two Video Game objects to determine ordering Returns 0 if the two
-	 * items are equal Return -1 if this Video Game's title comes alphabetically
-	 * before the other Video Game's title. Returns 1 if the other Video Game's
-	 * title comes alphabetically before this Video Game's title If the two Video
-	 * Game's titles are the same, will differentiate by director's name
+	 * items are equal Return -1 if this Video Game's serial number comes alphabetically
+	 * before the other Video Game's serial number. Returns 1 if the other Video Game's
+	 * serial number comes alphabetically before this Video Game's serial number If the two Video
+	 * Game's serial number are the same, will differentiate by title's name
 	 * (alphabetical comparison)
 	 *
 	 * @param the other Video Game object to compare to this
@@ -169,7 +173,7 @@ public class VideoGames implements Comparable<VideoGames> {
 
 	/**
 	 * Returns a consistent hash code for each Video Game by summing the Unicode
-	 * values of each character in the key Key = title + director
+	 * values of each character in the key Key = serialNumber + title
 	 *
 	 * @return the hash code
 	 */
