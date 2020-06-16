@@ -191,7 +191,7 @@ public class VideoGames implements Comparable<VideoGames> {
 	 */
 	public void printGameToFile(PrintWriter output) {
 		output.println(serialNumber + "\n" + title + "\n" 
-				+ year + "\n" + publisher + "\n" + rating + "\n");
+				+ publisher + "\n" + year + "\n" + rating + "\n");
 	}
 
 }
