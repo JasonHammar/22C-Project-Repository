@@ -46,10 +46,10 @@ public class VideoGameTest {
 		System.out.print(game5.getTitle());
 		
 		System.out.print("**Testing setisbn()**\n\nShould Print: wuthj-687-fjyt7.\n");
-		game3.setisbn("wuthj-687-fjyt7");
+		game3.setSerialNumber("wuthj-687-fjyt7");
 		System.out.print(game3.getSerialNumber());
 		System.out.println("\nShould print: 687yu-r76eu-tu.");
-		game5.setisbn("687yu-r76eu-tu");
+		game5.setSerialNumber("687yu-r76eu-tu");
 		System.out.print(game5.getSerialNumber());
 		
 		System.out.print("**Testing setYear()**\n\nShould Print: 2006.\n");
