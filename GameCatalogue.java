@@ -80,14 +80,6 @@ public class GameCatalogue {
 		in.close();
 	}
 	
-	/**
-	 * outputs the hash contents onto file by calling on hash.printOut
-	 */
-	public void writeFile() throws IOException{
-		File outFile = new File("out.txt");
-		PrintWriter output = new PrintWriter(outFile);
-		hash.printOut(output);
-	}
 	
-	}
+}
 
