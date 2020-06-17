@@ -1,6 +1,6 @@
 import java.io.PrintWriter;
 
-public class VideoGames2 extends VideoGames implements Comparable<VideoGames> {
+public class VideoGames2 extends VideoGames implements Comparable<VideoGames2> {
 	private String serialNumber;
 	private String title;
 	private Integer year;
