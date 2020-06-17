@@ -448,7 +448,6 @@ public class BST<T extends Comparable<T>> {
 	 */
 	public void printAllMatches(T data) {
 		printAllMatches(root, data);
-		System.out.println();
 	}
 	
 	/**
