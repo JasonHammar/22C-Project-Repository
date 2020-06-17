@@ -3,7 +3,7 @@ import java.io.PrintWriter;
 public class VideoGames implements Comparable<VideoGames> {
 	private String serialNumber;
 	private String title;
-	private int year;
+	private Integer year;
 	private String publisher;
 	private String rating;
 
@@ -156,30 +156,38 @@ public class VideoGames implements Comparable<VideoGames> {
 	 */
 	// @Override
 	public int compareTo(VideoGames otherVideoGame) {
-		if (this.equals(otherVideoGame)) {
-			return 0;
-		} else if (serialNumber.compareTo(otherVideoGame.serialNumber) < 0) {
-			return -1;
-		} else if (serialNumber.compareTo(otherVideoGame.serialNumber) > 0) {
-			return 1;
-		}
-		if (title.compareTo(otherVideoGame.title) < 0) {
-			return -1;
-		} else if (title.compareTo(otherVideoGame.title) > 0) {
-			return 1;
-		}
-		return 0;
+		int compare = this.serialNumber.compareTo(otherVideoGame.getSerialNumber());
+    	
+    	if(compare == 0) {
+        	compare = this.title.compareTo(otherVideoGame.getTitle());
+        	if (compare == 0) {
+        		return 0;
+        	}
+        	else if(compare < 0) {
+        		return -1;
+        	}
+        	else {
+        		return 1;
+        	}
+        }
+        else if(compare < 0) {
+        	return -1;
+        }
+        else  {
+        	return 1;
+        }
+ 
 	}
 
 	/**
 	 * Returns a consistent hash code for each Video Game by summing the Unicode
-	 * values of each character in the key (Primary Key)
+	 * values of each character in the key Key = serialNumber + title
 	 *
 	 * @return the hash code
 	 */
 	@Override
 	public int hashCode() {
-		String key = serialNumber;
+		String key = serialNumber + title;
 		int sum = 0;
 		for (int i = 0; i < key.length(); i++) {
 			sum += (int) key.charAt(i);
