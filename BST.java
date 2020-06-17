@@ -42,6 +42,7 @@ public class BST<T extends Comparable<T>> {
 		if (node == null) {
 			return;
 		}
+
 		insert(node.data);
 		copyHelper(node.left);
 		copyHelper(node.right);
@@ -113,12 +114,14 @@ public class BST<T extends Comparable<T>> {
 		if (node == null) {
 			return -1;
 		}
+
 		int left = getHeight(node.left);
 		int right = getHeight(node.right);
 
 		if (left > right) {
 			return (1 + left);
 		}
+
 		return 1 + right;
 	}
 
@@ -198,7 +201,7 @@ public class BST<T extends Comparable<T>> {
 	 * @return whether the data is stored in the tree
 	 */
 	private boolean search(T data, Node node) {
-		if (data.equals(node.data)) {
+		if (data.compareTo(node.data) == 0) {
 			return true;
 		} else if (data.compareTo(node.data) < 0) {
 			if (node.left == null) {
@@ -207,6 +210,7 @@ public class BST<T extends Comparable<T>> {
 				return search(data, node.left);
 			}
 		}
+
 		if (node.right == null) {
 			return false;
 		} else {
@@ -229,7 +233,6 @@ public class BST<T extends Comparable<T>> {
 		} else if (!(o instanceof BST)) {
 			return false;
 		} else {
-
 			BST<T> L = (BST<T>) o;
 			return equals(root, L.root);
 		}
@@ -251,7 +254,6 @@ public class BST<T extends Comparable<T>> {
 		} else {
 			return node1.data.equals(node2.data) && equals(node1.left, node2.left) && equals(node1.right, node2.right);
 		}
-
 	}
 
 	/*** MUTATORS ***/
@@ -267,7 +269,6 @@ public class BST<T extends Comparable<T>> {
 		} else {
 			insert(data, root);
 		}
-
 	}
 
 	/**
@@ -284,7 +285,9 @@ public class BST<T extends Comparable<T>> {
 			} else {
 				insert(data, node.left);
 			}
-		} else {
+		}
+
+		else {
 			if (node.right == null) {
 				node.right = new Node(data);
 			} else {
@@ -307,6 +310,7 @@ public class BST<T extends Comparable<T>> {
 		} else if (search(data) == false) {
 			throw new NoSuchElementException("remove(): Element not found");
 		}
+
 		root = remove(data, root);
 	}
 
@@ -355,7 +359,8 @@ public class BST<T extends Comparable<T>> {
 		if (node == null) {
 			return;
 		}
-		System.out.print(node.data + " ");
+
+		System.out.print(node.data + "\n");
 		preOrderPrint(node.left);
 		preOrderPrint(node.right);
 	}
@@ -376,8 +381,9 @@ public class BST<T extends Comparable<T>> {
 		if (node == null) {
 			return;
 		}
+
 		inOrderPrint(node.left);
-		System.out.print(node.data);
+		System.out.print(node.data + "\n");
 		inOrderPrint(node.right);
 	}
 
@@ -397,8 +403,68 @@ public class BST<T extends Comparable<T>> {
 		if (node == null) {
 			return;
 		}
+
 		postOrderPrint(node.left);
 		postOrderPrint(node.right);
-		System.out.print(node.data + " ");
+		System.out.print(node.data + "\n");
+	}
+	
+	/**
+	 * Prints one element to the console
+	 */
+	public void printElement(T data) {
+		printElement(root, data);
+	}
+	
+	/**
+	 * Helper method to printElement method 
+	 * Prints one element to the console
+	 */
+	private void printElement(Node node, T data) {
+		if (data.compareTo(node.data) == 0) {
+			System.out.print(node.data + "\n");
+		}
+
+		else if (data.compareTo(node.data) < 0) {
+			if (node.left == null) {
+				return;
+			} else {
+				printElement(node.left, data);
+			}
+		}
+
+		else{
+			if (node.right == null) {
+				return;
+			}
+			else {
+				printElement(node.right, data);
+			}
+		}
+	}
+	
+	/**
+	 * Prints all elements that matches to the console
+	 */
+	public void printAllMatches(T data) {
+		printAllMatches(root, data);
+		System.out.println();
+	}
+	
+	/**
+	 * Helper method to printAllMatches method 
+	 * Prints all elements that matches to the console
+	 */
+	private void printAllMatches(Node node, T data) {
+		if (node == null) {
+			return;
+		}
+		
+		if(data.compareTo(node.data) == 0) {
+			System.out.print(node.data + "\n");
+		}
+		
+		printAllMatches(node.left, data);
+		printAllMatches(node.right, data);
 	}
 }
