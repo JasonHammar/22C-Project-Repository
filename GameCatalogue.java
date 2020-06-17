@@ -6,7 +6,7 @@ public class GameCatalogue {
 	// private String userName;
 	Hash<VideoGames> hash = new Hash<>(numvideogames * 2);
 	BST<VideoGames> bst = new BST<>();
-	BST<VideoGames> bst2 = new BST<>();
+	BST<VideoGames2> bst2 = new BST<>();
 
 	public static void main(String[] args) throws IOException {
 		GameCatalogue gameCatalogue = new GameCatalogue();
