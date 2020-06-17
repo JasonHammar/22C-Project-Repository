@@ -59,7 +59,7 @@ public class VideoGames2 implements Comparable<VideoGames2> {
 	public String getPublisher() {
 		return this.publisher;
 	}
-	
+
 	/**
 	 * Access the rating of the video game
 	 *
@@ -110,15 +110,15 @@ public class VideoGames2 implements Comparable<VideoGames2> {
 	}
 
 	/**
-	 * Creates a String of the Video Game information the following format: Serial Number:
-	 * <serialNumber> Title: <title> Year: <year> Publisher: <publisher> Rating: <rating>
-	 * Note that there should be no <> in the resulting String.
+	 * Creates a String of the Video Game information the following format: Serial
+	 * Number: <serialNumber> Title: <title> Year: <year> Publisher: <publisher>
+	 * Rating: <rating> Note that there should be no <> in the resulting String.
 	 */
 	@Override
 	public String toString() {
 		String result = "";
 		result += "Serial Number: " + serialNumber + "\nTitle: " + title + "\nYear: " + year + "\nPublisher: "
-				+ publisher + "\nRating: " + rating + "\n\n";
+				+ publisher + "\nRating: " + rating + "\n";
 		return result;
 	}
 
@@ -133,22 +133,22 @@ public class VideoGames2 implements Comparable<VideoGames2> {
 	public boolean equals(Object o) {
 		if (o == this) {
 			return true;
-		} else if (!(o instanceof VideoGames2)) {
+		} else if (!(o instanceof VideoGames)) {
 			return false;
 		} else {
 			VideoGames2 p = (VideoGames2) o;
-			return serialNumber.equals(p.serialNumber) && title.equals(p.title);
+			return title.equals(p.title);
 		}
 
 	}
 
 	/**
 	 * Compares two Video Game objects to determine ordering Returns 0 if the two
-	 * items are equal Return -1 if this Video Game's serial number comes alphabetically
-	 * before the other Video Game's serial number. Returns 1 if the other Video Game's
-	 * serial number comes alphabetically before this Video Game's serial number If the two Video
-	 * Game's serial number are the same, will differentiate by title's name
-	 * (alphabetical comparison)
+	 * items are equal Return -1 if this Video Game's serial number comes
+	 * alphabetically before the other Video Game's serial number. Returns 1 if the
+	 * other Video Game's serial number comes alphabetically before this Video
+	 * Game's serial number If the two Video Game's serial number are the same, will
+	 * differentiate by title's name (alphabetical comparison)
 	 *
 	 * @param the other Video Game object to compare to this
 	 * @return 0 (same Video Game), -1 (this Video Game ordered first) or 1 (the
@@ -157,49 +157,36 @@ public class VideoGames2 implements Comparable<VideoGames2> {
 	// @Override
 	public int compareTo(VideoGames2 otherVideoGame) {
 		int compare = this.title.compareTo(otherVideoGame.getTitle());
-    	
-    	if(compare == 0) {
-        	compare = this.year.compareTo(otherVideoGame.getYear());
-        	if (compare == 0) {
-        		return 0;
-        	}
-        	else if(compare < 0) {
-        		return -1;
-        	}
-        	else {
-        		return 1;
-        	}
-        }
-        else if(compare < 0) {
-        	return -1;
-        }
-        else  {
-        	return 1;
-        }
- 
+
+		if (compare == 0) {
+			return 0;
+		} else if (compare < 0) {
+			return -1;
+		} else {
+			return 1;
+		}
 	}
 
 	/**
 	 * Returns a consistent hash code for each Video Game by summing the Unicode
-	 * values of each character in the key Key = serialNumber + title
+	 * values of each character in the key (Primary Key)
 	 *
 	 * @return the hash code
 	 */
 	@Override
 	public int hashCode() {
-		String key = serialNumber + title;
+		String key = serialNumber;
 		int sum = 0;
 		for (int i = 0; i < key.length(); i++) {
 			sum += (int) key.charAt(i);
 		}
 		return sum;
 	}
+
 	/**
 	 * Prints all the games that are stored in hash table in original format
 	 */
 	public void printGameToFile(PrintWriter output) {
-		output.println(serialNumber + "\n" + title + "\n" 
-				+ publisher + "\n" + year + "\n" + rating + "\n");
+		output.println(serialNumber + "\n" + title + "\n" + publisher + "\n" + year + "\n" + rating + "\n");
 	}
-
 }
