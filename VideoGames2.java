@@ -17,7 +17,11 @@ public class VideoGames2 extends VideoGames implements Comparable<VideoGames2> {
 	 *                 in Millions of dollars
 	 */
 	public VideoGames2(String serialNumber, String title, int year, String studio, String rating) {
-		super(serialNumber, title, year, studio, rating);
+		this.serialNumber = serialNumber;
+		this.title = title;
+		this.year = year;
+		this.publisher = studio;
+		this.rating = rating;
 	}
 
 	
