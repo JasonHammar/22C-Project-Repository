@@ -6,6 +6,7 @@ public class GameCatalogue {
 	// private String userName;
 	Hash<VideoGames> hash = new Hash<>(numvideogames * 2);
 	BST<VideoGames> bst = new BST<>();
+	BST<VideoGames2> bst2 = new BST<>();
 
 	public static void main(String[] args) throws IOException {
 		GameCatalogue gameCatalogue = new GameCatalogue();
@@ -27,7 +28,13 @@ public class GameCatalogue {
 			}
 		}
 		input.close();
+		//printing out by sorted primary
+		System.out.println("****Primary Sort****");
+		gameCatalogue.bst.inOrderPrint();
 		
+		//printing out by sorted secondary
+		System.out.println("****Secondary Sort****");
+		gameCatalogue.bst2.inOrderPrint();
 		
 		//writing file to out.txt
 		gameCatalogue.writeFile();
@@ -60,15 +67,11 @@ public class GameCatalogue {
 				in.nextLine();
 			}
 
-			System.out.println("serialNum: " + serialNum);
-			System.out.println("title: " + title);
-			System.out.println("publisher: " + publisher);
-			System.out.println("year: " + year);
-			System.out.println("rating: " + rating + "\n");
-
 			VideoGames v = new VideoGames(serialNum, title, year, publisher, rating);
+			VideoGames2 v2 = new VideoGames2(serialNum, title, year, publisher, rating);
 			hash.insert(v);
 			bst.insert(v);
+			bst2.insert(v2);
 		}
 		in.close();
 	}
