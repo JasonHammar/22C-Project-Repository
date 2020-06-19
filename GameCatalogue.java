@@ -1,3 +1,13 @@
+/*
+* GameCatalogue.java
+* @author Daniel Morales
+* @author Jason Hammar
+* @author Zyad Khater
+* @author Zeko Khater
+* @author Donggyu(Alex) Yu
+* @author Aurielle Jocom
+* CIS 22C, Course Project
+*/
 import java.io.*;
 import java.util.*;
 
