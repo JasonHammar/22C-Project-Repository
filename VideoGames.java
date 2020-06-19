@@ -10,11 +10,11 @@ public class VideoGames implements Comparable<VideoGames> {
 	/**
 	 * Constructor for the Video Game class
 	 *
+	 * @param serialNumber the Video Game's serial Number
 	 * @param title    the Video Game's title
-	 * @param director the Video Game's director
 	 * @param year     the year the Video Game was released
-	 * @param gross    the amount grossed over the lifetime of the Video Game, given
-	 *                 in Millions of dollars
+	 * @param publisher the Video Game's publisher
+	 * @param rating   the Video game's rating
 	 */
 	public VideoGames(String serialNumber, String title, int year, String studio, String rating) {
 		this.serialNumber = serialNumber;
@@ -34,9 +34,9 @@ public class VideoGames implements Comparable<VideoGames> {
 	}
 
 	/**
-	 * Accesses the director of the Video Game
+	 * Accesses the serial number of the Video Game
 	 *
-	 * @return the Video Game's director
+	 * @return the Video Game's serial number
 	 */
 	public String getSerialNumber() {
 		return this.serialNumber;
