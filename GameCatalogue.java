@@ -63,7 +63,15 @@ public class GameCatalogue {
 			while (choice < 1 || choice > 6) {
 				System.out.println("\nInvalid choice!");
 				System.out.print("Enter your choice: ");
-				choice = input.nextInt();
+				
+				if(!input.hasNextInt()) {
+					in = input.next();
+					choice = 0;
+				}
+				
+				else {
+					choice = input.nextInt();
+				}
 			}
 
 			if (choice == 1) {
@@ -85,7 +93,15 @@ public class GameCatalogue {
 				while (choice < 1 || choice > 3) {
 					System.out.println("\nInvalid choice!");
 					System.out.print("Enter your choice: ");
-					choice = input.nextInt();
+					
+					if(!input.hasNextInt()) {
+						in = input.next();
+						choice = 0;
+					}
+					
+					else {
+						choice = input.nextInt();
+					}
 				}
 
 				if (choice == 1) {
@@ -122,7 +138,15 @@ public class GameCatalogue {
 				while (choice < 1 || choice > 2) {
 					System.out.println("\nInvalid choice!");
 					System.out.print("Enter your choice: ");
-					choice = input.nextInt();
+					
+					if(!input.hasNextInt()) {
+						in = input.next();
+						choice = 0;
+					}
+					
+					else {
+						choice = input.nextInt();
+					}
 				}
 
 				if (choice == 1) {
