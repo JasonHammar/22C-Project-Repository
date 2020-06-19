@@ -227,6 +227,10 @@ public class GameCatalogue {
 				}
 			}
 
+			else if(choice == 5) {
+				gameCatalogue.writeFile();
+				System.out.println("\nCatalogue is saved in out.txt!");
+			}
 			else {
 				gameCatalogue.writeFile();
 
