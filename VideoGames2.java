@@ -1,3 +1,13 @@
+/*
+* VideoGames2.java
+* @author Daniel Morales
+* @author Jason Hammar
+* @author Zyad Khater
+* @author Zeko Khater
+* @author Donggyu(Alex) Yu
+* @author Aurielle Jocom
+* CIS 22C, Course Project
+*/
 import java.io.PrintWriter;
 
 public class VideoGames2 implements Comparable<VideoGames2> {
@@ -8,7 +18,7 @@ public class VideoGames2 implements Comparable<VideoGames2> {
 	private String rating;
 
 	/**
-	 * Constructor for the Video Game class
+	 * Constructor for the VideoGames2 class
 	 *
 	 * @param serialNumber the Video Game's serial number
 	 * @param title    the Video Game's title
@@ -169,7 +179,7 @@ public class VideoGames2 implements Comparable<VideoGames2> {
 
 	/**
 	 * Returns a consistent hash code for each Video Game by summing the Unicode
-	 * values of each character in the key (Primary Key)
+	 * values of each character in the key (Secondary Key)
 	 *
 	 * @return the hash code
 	 */
