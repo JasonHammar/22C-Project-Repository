@@ -346,7 +346,7 @@ public class BST<T extends Comparable<T>> {
 			node = node.right;
 		} else {
 			node.data = findMin(node.right);
-			node.right = remove(node.data, root.right);
+			node.right = remove(node.data, node.right);
 		}
 		return node;
 	}
