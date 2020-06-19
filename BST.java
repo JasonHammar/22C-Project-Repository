@@ -1,286 +1,469 @@
-import java.io.*;
-import java.util.*;
+import java.util.NoSuchElementException;
 
-public class GameCatalogue {
-	private final int numvideogames = 25;
-	// private String userName;
-	Hash<VideoGames> hash = new Hash<>(numvideogames * 2);
-	BST<VideoGames> bst = new BST<>();
-	BST<VideoGames2> bst2 = new BST<>();
+public class BST<T extends Comparable<T>> {
+	private class Node {
+		private T data;
+		private Node left;
+		private Node right;
 
-	public static void main(String[] args) throws IOException {
-		String serialCode;
-		String title;
-		int year;
-		String publisher;
-		String rating;
+		public Node(T data) {
+			this.data = data;
+			left = null;
+			right = null;
+		}
+	}
 
-		GameCatalogue gameCatalogue = new GameCatalogue();
-		Scanner input = new Scanner(System.in);
+	private Node root;
 
-		System.out.println("Welcome to your video game library!");
+	/*** CONSTRUCTORS ***/
 
-		// try catch block for valid file from user
-		boolean isTrue = true;
-		String fileName;
-		while (isTrue) {
-			try {
-				System.out.print("Enter text file name: ");
-				fileName = input.nextLine();
-				gameCatalogue.readFile(fileName);
-				isTrue = false;
-			} catch (IOException e) {
-				System.out.println("Not a valid file name");
+	/**
+	 * Default constructor for BST sets root to null
+	 */
+	public BST() {
+		root = null;
+	}
+
+	/**
+	 * Copy constructor for BST
+	 *
+	 * @param bst the BST to make a copy of
+	 */
+	public BST(BST<T> bst) {
+		copyHelper(bst.root);
+	}
+
+	/**
+	 * Helper method for copy constructor
+	 *
+	 * @param node the node containing data to copy
+	 */
+	private void copyHelper(Node node) {
+		if (node == null) {
+			return;
+		}
+
+		insert(node.data);
+		copyHelper(node.left);
+		copyHelper(node.right);
+	}
+
+	/*** ACCESSORS ***/
+
+	/**
+	 * Returns the data stored in the root
+	 *
+	 * @precondition !isEmpty()
+	 * @return the data stored in the root
+	 * @throws NoSuchElementException when precondition is violated
+	 */
+	public T getRoot() throws NoSuchElementException {
+		if (isEmpty()) {
+			throw new NoSuchElementException("getRoot() Tree is empty");
+		}
+		return root.data;
+	}
+
+	/**
+	 * Determines whether the tree is empty
+	 *
+	 * @return whether the tree is empty
+	 */
+	public boolean isEmpty() {
+		return root == null;
+	}
+
+	/**
+	 * Returns the current size of the tree (number of nodes)
+	 *
+	 * @return the size of the tree
+	 */
+	public int getSize() {
+		return getSize(root);
+	}
+
+	/**
+	 * Helper method for the getSize method
+	 *
+	 * @param node the current node to count
+	 * @return the size of the tree
+	 */
+	private int getSize(Node node) {
+		if (node == null) {
+			return 0;
+		}
+		return 1 + getSize(node.left) + getSize(node.right);
+	}
+
+	/**
+	 * Returns the height of tree by counting edges.
+	 *
+	 * @return the height of the tree
+	 */
+	public int getHeight() {
+		return getHeight(root);
+	}
+
+	/**
+	 * Helper method for getHeight method
+	 *
+	 * @param node the current node whose height to count
+	 * @return the height of the tree
+	 */
+	private int getHeight(Node node) {
+		if (node == null) {
+			return -1;
+		}
+
+		int left = getHeight(node.left);
+		int right = getHeight(node.right);
+
+		if (left > right) {
+			return (1 + left);
+		}
+
+		return 1 + right;
+	}
+
+	/**
+	 * Returns the smallest value in the tree
+	 *
+	 * @precondition !isEmpty()
+	 * @return the smallest value in the tree
+	 * @throws NoSuchElementException when the precondition is violated
+	 */
+	public T findMin() throws NoSuchElementException {
+		if (isEmpty()) {
+			throw new NoSuchElementException("findMin(): Tree is empty");
+		}
+		return findMin(root);
+	}
+
+	/**
+	 * Helper method to findMin method
+	 *
+	 * @param node the current node to check if it is the smallest
+	 * @return the smallest value in the tree
+	 */
+	private T findMin(Node node) {
+		if (node.left != null) {
+			return findMin(node.left);
+		}
+		return node.data;
+	}
+
+	/**
+	 * Returns the largest value in the tree
+	 *
+	 * @precondition !isEmpty()
+	 * @return the largest value in the tree
+	 * @throws NoSuchElementException when the precondition is violated
+	 */
+	public T findMax() throws NoSuchElementException {
+		if (isEmpty()) {
+			throw new NoSuchElementException("findMax(): Tree is empty");
+		}
+		return findMax(root);
+	}
+
+	/**
+	 * Helper method to findMax method
+	 *
+	 * @param node the current node to check if it is the largest
+	 * @return the largest value in the tree
+	 */
+	private T findMax(Node node) {
+		if (node.right != null) {
+			return findMax(node.right);
+		}
+		return node.data;
+	}
+
+	/**
+	 * Searches for a specified value in the tree
+	 *
+	 * @param data the value to search for
+	 * @return whether the value is stored in the tree
+	 */
+	public boolean search(T data) {
+		if (root == null) {
+			return false;
+		} else {
+			return search(data, root);
+		}
+	}
+
+	/**
+	 * Helper method for the search method
+	 *
+	 * @param data the data to search for
+	 * @param node the current node to check
+	 * @return whether the data is stored in the tree
+	 */
+	private boolean search(T data, Node node) {
+		if (data.compareTo(node.data) == 0) {
+			return true;
+		} else if (data.compareTo(node.data) < 0) {
+			if (node.left == null) {
+				return false;
+			} else {
+				return search(data, node.left);
 			}
 		}
 
-		int choice = 0;
-		String in;
-		VideoGames vg;
-		VideoGames2 vg2;
+		if (node.right == null) {
+			return false;
+		} else {
+			return search(data, node.right);
+		}
+	}
 
+	/**
+	 * Determines whether two trees store identical data in the same structural
+	 * position in the tree
+	 *
+	 * @param o another Object
+	 * @return whether the two trees are equal
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	public boolean equals(Object o) {
+		if (o == this) {
+			return true;
+		} else if (!(o instanceof BST)) {
+			return false;
+		} else {
+			BST<T> L = (BST<T>) o;
+			return equals(root, L.root);
+		}
+	}
+
+	/**
+	 * Helper method for the equals method
+	 *
+	 * @param node1 the node of the first bst
+	 * @param node2 the node of the second bst
+	 * @return whether the two trees contain identical data stored in the same
+	 *         structural position inside the trees
+	 */
+	private boolean equals(Node node1, Node node2) {
+		if (node1 == null && node2 == null) {
+			return true;
+		} else if (node1 == null || node2 == null) {
+			return false;
+		} else {
+			return node1.data.equals(node2.data) && equals(node1.left, node2.left) && equals(node1.right, node2.right);
+		}
+	}
+
+	/*** MUTATORS ***/
+
+	/**
+	 * Inserts a new node in the tree
+	 *
+	 * @param data the data to insert
+	 */
+	public void insert(T data) {
+		if (root == null) {
+			root = new Node(data);
+		} else {
+			insert(data, root);
+		}
+	}
+
+	/**
+	 * Helper method to insert Inserts a new value in the tree
+	 *
+	 * @param data the data to insert
+	 * @param node the current node in the search for the correct location in which
+	 *             to insert
+	 */
+	private void insert(T data, Node node) {
+		if (data.compareTo(node.data) <= 0) {
+			if (node.left == null) {
+				node.left = new Node(data);
+			} else {
+				insert(data, node.left);
+			}
+		}
+
+		else {
+			if (node.right == null) {
+				node.right = new Node(data);
+			} else {
+				insert(data, node.right);
+			}
+		}
+	}
+
+	/**
+	 * Removes a value from the BST
+	 *
+	 * @param data the value to remove
+	 * @precondition !isEmpty()
+	 * @precondition the data is located in the tree
+	 * @throws NoSuchElementException when the precondition is violated
+	 */
+	public void remove(T data) throws NoSuchElementException {
+		if (isEmpty()) {
+			throw new NoSuchElementException("remove(): Tree is empty");
+		} else if (search(data) == false) {
+			throw new NoSuchElementException("remove(): Element not found");
+		}
+
+		root = remove(data, root);
+	}
+
+	/**
+	 * Helper method to the remove method
+	 *
+	 * @param data the data to remove
+	 * @param node the current node
+	 * @return an updated reference variable
+	 */
+	private Node remove(T data, Node node) {
+		if (node == null) {
+			return node;
+		} else if (data.compareTo(node.data) < 0) {
+			node.left = remove(data, node.left);
+		} else if (data.compareTo(node.data) > 0) {
+			node.right = remove(data, node.right);
+		} else if (node.left == null && node.right == null) {
+			node = null;
+		} else if (node.right == null) {
+			node = node.left;
+		} else if (node.left == null) {
+			node = node.right;
+		} else {
+			node.data = findMin(node.right);
+			node.right = remove(node.data, root.right);
+		}
+		return node;
+	}
+
+	/*** ADDITIONAL OPERATIONS ***/
+
+	/**
+	 * Prints the data in pre order to the console
+	 */
+	public void preOrderPrint() {
+		preOrderPrint(root);
 		System.out.println();
-
-		while (choice != 6) {
-			System.out.println("Please select one of the following:");
-			System.out.println("1. Print your catalog");
-			System.out.println("2. Search for video game");
-			System.out.println("3. Add video game");
-			System.out.println("4. Remove video game");
-			System.out.println("5. Save to file");
-			System.out.println("6. Quit");
-			System.out.print("Enter your choice: ");
-			
-			if(!input.hasNextInt()) {
-				in = input.next();
-				choice = 0;
-			}
-			
-			else {
-				choice = input.nextInt();
-			}
-
-			while (choice < 1 || choice > 6) {
-				System.out.println("\nInvalid choice!");
-				System.out.print("Enter your choice: ");
-				
-				if(!input.hasNextInt()) {
-					in = input.next();
-					choice = 0;
-				}
-				
-				else {
-					choice = input.nextInt();
-				}
-			}
-
-			if (choice == 1) {
-				System.out.println("\nPlease select one of the following:");
-				System.out.println("1. Print unsorted");
-				System.out.println("2. Print sorted by serial code");
-				System.out.println("3. Print sorted by title");
-				System.out.print("Enter your choice: ");
-				
-				if(!input.hasNextInt()) {
-					in = input.next();
-					choice = 0;
-				}
-				
-				else {
-					choice = input.nextInt();
-				}
-
-				while (choice < 1 || choice > 3) {
-					System.out.println("\nInvalid choice!");
-					System.out.print("Enter your choice: ");
-					
-					if(!input.hasNextInt()) {
-						in = input.next();
-						choice = 0;
-					}
-					
-					else {
-						choice = input.nextInt();
-					}
-				}
-
-				if (choice == 1) {
-					System.out.println();
-					System.out.print(gameCatalogue.hash);
-				}
-
-				else if (choice == 2) {
-					System.out.println();
-					gameCatalogue.bst.inOrderPrint();
-				}
-
-				else {
-					System.out.println();
-					gameCatalogue.bst2.inOrderPrint();
-				}
-			}
-
-			else if (choice == 2) {
-				System.out.println("\nPlease select one of the following:");
-				System.out.println("1. Search by serial code");
-				System.out.println("2. Search by title");
-				System.out.print("Enter your choice: ");
-				
-				if(!input.hasNextInt()) {
-					in = input.next();
-					choice = 0;
-				}
-				
-				else {
-					choice = input.nextInt();
-				}
-
-				while (choice < 1 || choice > 2) {
-					System.out.println("\nInvalid choice!");
-					System.out.print("Enter your choice: ");
-					
-					if(!input.hasNextInt()) {
-						in = input.next();
-						choice = 0;
-					}
-					
-					else {
-						choice = input.nextInt();
-					}
-				}
-
-				if (choice == 1) {
-					System.out.print("\nEnter the serial code: ");
-					serialCode = input.next();
-					vg = new VideoGames(serialCode, "", 0, "", "");
-
-					if (gameCatalogue.bst.search(vg) == false) {
-						System.out.println("\nVideo game with serial code: " + serialCode + " is not in the database\n");
-					}
-
-					else {
-						System.out.println("\nVideo game with serial code: " + serialCode + " is in the database\n");
-						System.out.println("Displaying search result:\n");
-						gameCatalogue.bst.printElement(vg);
-					}
-				}
-
-				else {
-					System.out.print("\nEnter the title: ");
-					title = input.next() + input.nextLine();
-					vg2 = new VideoGames2("", title, 0, "", "");
-
-					if (gameCatalogue.bst2.search(vg2) == false) {
-						System.out.println("\nVideo game with title: " + title + " is not in the database\n");
-					}
-
-					else {
-						System.out.println("\nVideo game with title: " + title + " is in the database\n");
-						System.out.println("Displaying search results:\n");
-						gameCatalogue.bst2.printAllMatches(vg2);
-					}
-				}
-			}
-
-			else if (choice == 3) {
-				System.out.print("\nEnter the serial code: ");
-				serialCode = input.next();
-				System.out.print("Enter the title: ");
-				title = input.next() + input.nextLine();
-				System.out.print("Enter the year: ");
-				year = input.nextInt();
-				System.out.print("Enter the publisher: ");
-				publisher = input.next();
-				System.out.print("Enter the rating: ");
-				rating = input.next();
-
-				vg = new VideoGames(serialCode, title, year, publisher, rating);
-				vg2 = new VideoGames2(serialCode, title, year, publisher, rating);
-				
-				gameCatalogue.hash.insert(vg);
-				gameCatalogue.bst.insert(vg);
-				gameCatalogue.bst2.insert(vg2);
-
-				System.out.println("\n" + title + " was added!\n");
-			}
-
-			else if (choice == 4) {
-				System.out.print("\nEnter the serial code: ");
-				serialCode = input.next();
-				System.out.print("Enter the title: ");
-				title = input.next() + input.nextLine();
-
-				vg = new VideoGames(serialCode, title, 0, "", "");
-				vg2 = new VideoGames2("", title, 0, "", "");
-
-				if (gameCatalogue.hash.search(vg) == -1) {
-					System.out.println(
-							"\nI cannot find " + title + " with serial code: " + serialCode + " in the database.\n");
-				}
-
-				else {
-					gameCatalogue.hash.remove(vg);
-					gameCatalogue.bst.remove(vg);
-					gameCatalogue.bst2.remove(vg2);
-
-					System.out.println("\n" + title + " was removed!\n");
-				}
-			}
-
-			else {
-				gameCatalogue.writeFile();
-
-				if (choice == 6) {
-					System.out.print("\nGoodbye!");
-					break;
-				}
-
-				System.out.println("\nCatalogue is saved in out.txt!");
-				System.out.println("Your current catalogue:\n");
-				System.out.print(gameCatalogue.hash);
-			}
-		}
-		input.close();
 	}
 
 	/**
-	 * reads file content
-	 * 
-	 * @throws IOException
+	 * Helper method to preOrderPrint method Prints the data in pre order to the
+	 * console
 	 */
-	public void readFile(String fileName) throws IOException {
-		File inFile = new File(fileName);
-		Scanner in = new Scanner(inFile);
-
-		while (in.hasNext()) {
-			String serialNum = in.nextLine();
-			String title = in.nextLine();
-			String publisher = in.nextLine();
-			int year = in.nextInt();
-			in.nextLine();
-			String rating = in.nextLine();
-
-			if (in.hasNextLine()) {
-				in.nextLine();
-			}
-
-			VideoGames v = new VideoGames(serialNum, title, year, publisher, rating);
-			VideoGames2 v2 = new VideoGames2(serialNum, title, year, publisher, rating);
-			
-			hash.insert(v);
-			bst.insert(v);
-			bst2.insert(v2);
+	private void preOrderPrint(Node node) {
+		if (node == null) {
+			return;
 		}
-		in.close();
+
+		System.out.print(node.data + "\n");
+		preOrderPrint(node.left);
+		preOrderPrint(node.right);
 	}
 
 	/**
-	 * outputs the hash contents onto file by calling on hash.printOut
+	 * Prints the data in sorted order to the console
 	 */
-	public void writeFile() throws IOException {
-		File outFile = new File("out.txt");
-		PrintWriter output = new PrintWriter(outFile);
-		hash.printOut(output);
-		output.close();
+	public void inOrderPrint() {
+		inOrderPrint(root);
+		System.out.println();
+	}
+
+	/**
+	 * Helper method to inOrderPrint method Prints the data in sorted order to the
+	 * console
+	 */
+	private void inOrderPrint(Node node) {
+		if (node == null) {
+			return;
+		}
+
+		inOrderPrint(node.left);
+		System.out.print(node.data + "\n");
+		inOrderPrint(node.right);
+	}
+
+	/**
+	 * Prints the data in post order to the console
+	 */
+	public void postOrderPrint() {
+		postOrderPrint(root);
+		System.out.println();
+	}
+
+	/**
+	 * Helper method to postOrderPrint method Prints the data in post order to the
+	 * console
+	 */
+	private void postOrderPrint(Node node) {
+		if (node == null) {
+			return;
+		}
+
+		postOrderPrint(node.left);
+		postOrderPrint(node.right);
+		System.out.print(node.data + "\n");
+	}
+	
+	/**
+	 * Prints one element to the console
+	 */
+	public void printElement(T data) {
+		printElement(root, data);
+	}
+	
+	/**
+	 * Helper method to printElement method 
+	 * Prints one element to the console
+	 */
+	private void printElement(Node node, T data) {
+		if (data.compareTo(node.data) == 0) {
+			System.out.print(node.data + "\n");
+		}
+
+		else if (data.compareTo(node.data) < 0) {
+			if (node.left == null) {
+				return;
+			} else {
+				printElement(node.left, data);
+			}
+		}
+
+		else{
+			if (node.right == null) {
+				return;
+			}
+			else {
+				printElement(node.right, data);
+			}
+		}
+	}
+	
+	/**
+	 * Prints all elements that matches to the console
+	 */
+	public void printAllMatches(T data) {
+		printAllMatches(root, data);
+	}
+	
+	/**
+	 * Helper method to printAllMatches method 
+	 * Prints all elements that matches to the console
+	 */
+	private void printAllMatches(Node node, T data) {
+		if (node == null) {
+			return;
+		}
+		
+		if(data.compareTo(node.data) == 0) {
+			System.out.print(node.data + "\n");
+		}
+		
+		printAllMatches(node.left, data);
+		printAllMatches(node.right, data);
 	}
 }
