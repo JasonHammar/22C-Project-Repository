@@ -53,7 +53,7 @@ public class GameCatalogue {
 
 		while (choice != 6) {
 			System.out.println("Please select one of the following:");
-			System.out.println("1. Print your catalog");
+			System.out.println("1. Print your catalogue");
 			System.out.println("2. Search for video game");
 			System.out.println("3. Add video game");
 			System.out.println("4. Remove video game");
@@ -255,6 +255,7 @@ public class GameCatalogue {
 			}
 		}
 		input.close();
+		gameCatalogue.writeFile();
 	}
 
 	/**
