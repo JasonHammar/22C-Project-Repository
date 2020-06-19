@@ -35,6 +35,7 @@ public class GameCatalogue {
 		}
 
 		int choice = 0;
+		String in;
 		VideoGames vg;
 		VideoGames2 vg2;
 
@@ -49,7 +50,15 @@ public class GameCatalogue {
 			System.out.println("5. Save to file");
 			System.out.println("6. Quit");
 			System.out.print("Enter your choice: ");
-			choice = input.nextInt();
+			
+			if(!input.hasNextInt()) {
+				in = input.next();
+				choice = 0;
+			}
+			
+			else {
+				choice = input.nextInt();
+			}
 
 			while (choice < 1 || choice > 6) {
 				System.out.println("\nInvalid choice!");
@@ -63,7 +72,15 @@ public class GameCatalogue {
 				System.out.println("2. Print sorted by serial code");
 				System.out.println("3. Print sorted by title");
 				System.out.print("Enter your choice: ");
-				choice = input.nextInt();
+				
+				if(!input.hasNextInt()) {
+					in = input.next();
+					choice = 0;
+				}
+				
+				else {
+					choice = input.nextInt();
+				}
 
 				while (choice < 1 || choice > 3) {
 					System.out.println("\nInvalid choice!");
@@ -92,7 +109,15 @@ public class GameCatalogue {
 				System.out.println("1. Search by serial code");
 				System.out.println("2. Search by title");
 				System.out.print("Enter your choice: ");
-				choice = input.nextInt();
+				
+				if(!input.hasNextInt()) {
+					in = input.next();
+					choice = 0;
+				}
+				
+				else {
+					choice = input.nextInt();
+				}
 
 				while (choice < 1 || choice > 2) {
 					System.out.println("\nInvalid choice!");
@@ -165,8 +190,8 @@ public class GameCatalogue {
 				vg2 = new VideoGames2(serialCode, title, 0, "", "");
 
 				if (gameCatalogue.hash.search(vg) == -1) {
-					System.out.println("\nI cannot find " + title + " with serial code: " 
-							   + serialCode + " in the database.\n");
+					System.out.println(
+							"\nI cannot find " + title + " with serial code: " + serialCode + " in the database.\n");
 				}
 
 				else {
