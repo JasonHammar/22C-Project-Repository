@@ -10,11 +10,11 @@ public class VideoGames2 implements Comparable<VideoGames2> {
 	/**
 	 * Constructor for the Video Game class
 	 *
+	 * @param serialNumber the Video Game's serial number
 	 * @param title    the Video Game's title
-	 * @param director the Video Game's director
 	 * @param year     the year the Video Game was released
-	 * @param gross    the amount grossed over the lifetime of the Video Game, given
-	 *                 in Millions of dollars
+	 * @param publisher the Video Game's publisher
+	 * @param rating the rating for the video game
 	 */
 	public VideoGames2(String serialNumber, String title, int year, String studio, String rating) {
 		this.serialNumber = serialNumber;
@@ -34,9 +34,9 @@ public class VideoGames2 implements Comparable<VideoGames2> {
 	}
 
 	/**
-	 * Accesses the director of the Video Game
+	 * Accesses the serial number of the Video Game
 	 *
-	 * @return the Video Game's director
+	 * @return the Video Game's serial number
 	 */
 	public String getSerialNumber() {
 		return this.serialNumber;
@@ -144,11 +144,11 @@ public class VideoGames2 implements Comparable<VideoGames2> {
 
 	/**
 	 * Compares two Video Game objects to determine ordering Returns 0 if the two
-	 * items are equal Return -1 if this Video Game's serial number comes
-	 * alphabetically before the other Video Game's serial number. Returns 1 if the
-	 * other Video Game's serial number comes alphabetically before this Video
-	 * Game's serial number If the two Video Game's serial number are the same, will
-	 * differentiate by title's name (alphabetical comparison)
+	 * items are equal Return -1 if this Video Game's title comes
+	 * alphabetically before the other Video Game's title. Returns 1 if the
+	 * other Video Game's title comes alphabetically before this Video
+	 * Game's title If the two Video Game's title are the same, will
+	 * differentiate by serial number (alphabetical comparison)
 	 *
 	 * @param the other Video Game object to compare to this
 	 * @return 0 (same Video Game), -1 (this Video Game ordered first) or 1 (the
