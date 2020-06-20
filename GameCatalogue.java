@@ -1,3 +1,4 @@
+
 /*
 * GameCatalogue.java
 * @author Daniel Morales
@@ -60,12 +61,12 @@ public class GameCatalogue {
 			System.out.println("5. Save to file");
 			System.out.println("6. Quit");
 			System.out.print("Enter your choice: ");
-			
-			if(!input.hasNextInt()) {
+
+			if (!input.hasNextInt()) {
 				in = input.next();
 				choice = 0;
 			}
-			
+
 			else {
 				choice = input.nextInt();
 			}
@@ -73,12 +74,12 @@ public class GameCatalogue {
 			while (choice < 1 || choice > 6) {
 				System.out.println("\nInvalid choice!");
 				System.out.print("Enter your choice: ");
-				
-				if(!input.hasNextInt()) {
+
+				if (!input.hasNextInt()) {
 					in = input.next();
 					choice = 0;
 				}
-				
+
 				else {
 					choice = input.nextInt();
 				}
@@ -90,12 +91,12 @@ public class GameCatalogue {
 				System.out.println("2. Print sorted by serial code");
 				System.out.println("3. Print sorted by title");
 				System.out.print("Enter your choice: ");
-				
-				if(!input.hasNextInt()) {
+
+				if (!input.hasNextInt()) {
 					in = input.next();
 					choice = 0;
 				}
-				
+
 				else {
 					choice = input.nextInt();
 				}
@@ -103,12 +104,12 @@ public class GameCatalogue {
 				while (choice < 1 || choice > 3) {
 					System.out.println("\nInvalid choice!");
 					System.out.print("Enter your choice: ");
-					
-					if(!input.hasNextInt()) {
+
+					if (!input.hasNextInt()) {
 						in = input.next();
 						choice = 0;
 					}
-					
+
 					else {
 						choice = input.nextInt();
 					}
@@ -135,12 +136,12 @@ public class GameCatalogue {
 				System.out.println("1. Search by serial code");
 				System.out.println("2. Search by title");
 				System.out.print("Enter your choice: ");
-				
-				if(!input.hasNextInt()) {
+
+				if (!input.hasNextInt()) {
 					in = input.next();
 					choice = 0;
 				}
-				
+
 				else {
 					choice = input.nextInt();
 				}
@@ -148,12 +149,12 @@ public class GameCatalogue {
 				while (choice < 1 || choice > 2) {
 					System.out.println("\nInvalid choice!");
 					System.out.print("Enter your choice: ");
-					
-					if(!input.hasNextInt()) {
+
+					if (!input.hasNextInt()) {
 						in = input.next();
 						choice = 0;
 					}
-					
+
 					else {
 						choice = input.nextInt();
 					}
@@ -165,7 +166,8 @@ public class GameCatalogue {
 					vg = new VideoGames(serialCode, "", 0, "", "");
 
 					if (gameCatalogue.bst.search(vg) == false) {
-						System.out.println("\nVideo game with serial code: " + serialCode + " is not in the database\n");
+						System.out
+								.println("\nVideo game with serial code: " + serialCode + " is not in the database\n");
 					}
 
 					else {
@@ -206,7 +208,7 @@ public class GameCatalogue {
 
 				vg = new VideoGames(serialCode, title, year, publisher, rating);
 				vg2 = new VideoGames2(serialCode, title, year, publisher, rating);
-				
+
 				gameCatalogue.hash.insert(vg);
 				gameCatalogue.bst.insert(vg);
 				gameCatalogue.bst2.insert(vg2);
@@ -229,19 +231,30 @@ public class GameCatalogue {
 				}
 
 				else {
-					gameCatalogue.hash.remove(vg);
-					gameCatalogue.bst.remove(vg);
-					gameCatalogue.bst2.remove(vg2);
+					System.out.print("\nAre you sure you want to delete the following?\n");
+					gameCatalogue.bst.printAllMatches(vg);
+					System.out.print("\nEnter your choice:");
+					System.out.print("\n1. Yes\n2. No\n");
+					choice = input.nextInt();
+					while (choice < 1 || choice > 2) {
+						System.out.print("\nInvalid Entry.");
+						System.out.print("\nEnter your choice:");
+						choice = input.nextInt();
+					}
+					if (choice == 1) {
+						gameCatalogue.hash.remove(vg);
+						gameCatalogue.bst.remove(vg);
+						gameCatalogue.bst2.remove(vg2);
 
-					System.out.println("\n" + title + " was removed!\n");
+						System.out.println("\n" + title + " was removed!\n");
+					}
 				}
 			}
 
-			else if(choice == 5) {
+			else if (choice == 5) {
 				gameCatalogue.writeFile();
 				System.out.println("\nCatalogue is saved in out.txt!");
-			}
-			else {
+			} else {
 				gameCatalogue.writeFile();
 
 				if (choice == 6) {
@@ -281,7 +294,7 @@ public class GameCatalogue {
 
 			VideoGames v = new VideoGames(serialNum, title, year, publisher, rating);
 			VideoGames2 v2 = new VideoGames2(serialNum, title, year, publisher, rating);
-			
+
 			hash.insert(v);
 			bst.insert(v);
 			bst2.insert(v2);
