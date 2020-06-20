@@ -233,14 +233,32 @@ public class GameCatalogue {
 				else {
 					System.out.print("\nAre you sure you want to delete the following?\n");
 					gameCatalogue.bst.printAllMatches(vg);
-					System.out.print("\nEnter your choice:");
 					System.out.print("\n1. Yes\n2. No\n");
-					choice = input.nextInt();
-					while (choice < 1 || choice > 2) {
-						System.out.print("\nInvalid Entry.");
-						System.out.print("\nEnter your choice:");
+					System.out.print("Enter your choice: ");
+					
+					if (!input.hasNextInt()) {
+						in = input.next();
+						choice = 0;
+					}
+					
+					else {
 						choice = input.nextInt();
 					}
+					
+					while (choice < 1 || choice > 2) {
+						System.out.print("\nInvalid Entry.");
+						System.out.print("\nEnter your choice: ");
+						
+						if (!input.hasNextInt()) {
+							in = input.next();
+							choice = 0;
+						}
+						
+						else {
+							choice = input.nextInt();
+						}
+					}
+					
 					if (choice == 1) {
 						gameCatalogue.hash.remove(vg);
 						gameCatalogue.bst.remove(vg);
@@ -251,10 +269,7 @@ public class GameCatalogue {
 				}
 			}
 
-			else if (choice == 5) {
-				gameCatalogue.writeFile();
-				System.out.println("\nCatalogue is saved in out.txt!");
-			} else {
+			else {
 				gameCatalogue.writeFile();
 
 				if (choice == 6) {
