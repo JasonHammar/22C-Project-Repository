@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 public class VideoGames2 implements Comparable<VideoGames2> {
 	private String serialNumber;
 	private String title;
-	private Integer year;
+	private int year;
 	private String publisher;
 	private String rating;
 
