@@ -283,7 +283,6 @@ public class GameCatalogue {
 			}
 		}
 		input.close();
-		gameCatalogue.writeFile();
 	}
 
 	/**
