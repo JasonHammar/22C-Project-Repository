@@ -176,27 +176,4 @@ public class VideoGames2 implements Comparable<VideoGames2> {
 			return 1;
 		}
 	}
-
-	/**
-	 * Returns a consistent hash code for each Video Game by summing the Unicode
-	 * values of each character in the key (Secondary Key)
-	 *
-	 * @return the hash code
-	 */
-	@Override
-	public int hashCode() {
-		String key = serialNumber;
-		int sum = 0;
-		for (int i = 0; i < key.length(); i++) {
-			sum += (int) key.charAt(i);
-		}
-		return sum;
-	}
-
-	/**
-	 * Prints all the games that are stored in hash table in original format
-	 */
-	public void printGameToFile(PrintWriter output) {
-		output.println(serialNumber + "\n" + title + "\n" + publisher + "\n" + year + "\n" + rating + "\n");
-	}
 }
